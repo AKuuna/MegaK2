@@ -1,5 +1,4 @@
-/* eslint-disable linebreak-style */
-const { dns } = require('dns');
+// const { dns } = require('dns');
 
 // dns.lookup('https://www.google.com/', 'utf8', (error, data) => {});
 
@@ -43,6 +42,15 @@ const { dns } = require('dns');
 //     }
 // });
 
-console.log('Program has finished!');
+// console.log('Program has finished!');
 
 // SIDE TASK WITH DNS
+
+
+// const { readFile } = require('fs').promises;
+
+// (async () => {
+//   const data = await readFile('./index.js', {
+//     encoding: 'utf8',
+//   });
+// })();
