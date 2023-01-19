@@ -1,67 +1,79 @@
-const { writeFile, readFile, appendFile} = require('fs').promises;
+//READDIR, FILESTAT, ACCESS
+const { readdir, readFile, stat, access } = require('fs').promises;
+const {W_OK} = require('fs').constants; // mode: R_OK is access possible to read, W_OK is possible to write
 
+//fs.exists is deprecated, no sense to use, instead use fs.access
+const FILE_NAME = './data/hello-world.txt';
 
-const FILE_NAME = './data/hello.txt';
-
-
-(async () => {
+//CHECKING IF THE FILE EXISTS, BEST WAAY
+(async() => {
     try {
-       
-        const numberFromFile = (await readFile(FILE_NAME, 'utf8')).split('\n');
-        console.log(numberFromFile);
-        await appendFile(FILE_NAME, `\n\n${numberFromFile[numberFromFile.length-1] * 2}`, 'utf8');
-        
-        console.log('File is saved');
+        const result = await readFile (FILE_NAME, 'utf8');
+        console.log(result);
+    } catch (error) {
 
-
-    } catch (err) {
-        console.log('Impossibl to write such file!', err);
+        //console.log(error.code);   //ENOENT - dla odczytu  //EEXIST -dla zapisu
+        if (error.code === 'ENOENT') {
+            console.log('FIle is not valid!');
+        } else {
+            console.log('Unknown error!', error);
+        }
     }
-}) ();
+     
+})();
 
 
+//NOT WANTED WAY OF CHECKING EXISTANCE OF FILE:
+(async() => {
+    try {
+     await access(FILE_NAME, W_OK);
+    } catch {
+        console.log('File is not valid!');
+    }
+})();
 
-//ASYNC VERSION
-// (async () => {
-//     try {
-       
-//         const numberFromFile = Number(await readFile(FILE_NAME, 'utf8'));
-//         await writeFile(FILE_NAME, String(numberFromFile * 2), 'utf8');
-        
-//         console.log('File is saved');
 
+// (asyc() => {
 
-//     } catch (err) {
-//         console.log('Impossibl to write such file!', err);
-//     }
 // })();
+//written otherwise:
+
+async function readFilesAndDirectories() {
+
+    const fileNames = await readdir('.');
+    // const fileNames = await readdir('./data');
+
+    for (const fileName of fileNames) {
+        console.log(fileName);
+    
+    // const fileContent = await readFile(`./data/${fileName}`, 'utf8');
+    // console.log(fileContent);
+
+    const fileStatus = await stat(`./${fileName}`);
+    console.log(fileStatus.isFile());
 
 
-// // CALLBACK VERSION
-// readFile(FILE_NAME, 'utf8',(error, data) => {
-//     if(error) {
-//         console.log('Impossibl to write such file!', error);
-//     } else {
-//         const numberFromFile = Number (data);
-//         appendFile(FILE_NAME, `\n${numberFromFile*2}`, 'utf8', error => {
-//             if(error) {
-//                 console.log('Impossibl to write such file!', error);
-//             } else {
-//                 console.log('File is saved');
-//             }
-//         })
-//     }
-// });
+    // const fileStatus = await stat(`./data/${fileName}`, 'utf8');
+    // console.log(fileStatus);
 
+    }
+}
 
+async function readFilesAndDirectories2() {
 
+    const fileNames = await readdir('./data');
 
+    for (const fileName of fileNames) {
+        console.log(fileName);
+    
+    const fileContent = await readFile(`./data/${fileName}`, 'utf8');
+    console.log(fileContent);
 
+    const fileStatus = await stat(`./data/${fileName}`, 'utf8');
+    console.log(fileStatus);
 
-// writeFile('./data/hello.txt', 'HiFI', 'utf8', (error) => {
-//   if (error) {
-//     console.log('Oh no!', error);
-//   } else {
-//     console.log('File is saved');
-//   }
-// });
+    }
+}
+
+readFilesAndDirectories();
+readFilesAndDirectories2();
