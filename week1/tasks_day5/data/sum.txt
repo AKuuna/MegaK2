@@ -1,0 +1,2 @@
+Sum of numbers given in file ./data/input1.json is: 
+108
