@@ -19,6 +19,7 @@
     "eslint-plugin-import": "^2.27.5"
   },
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "chokidar": "^3.5.3",
     "node-fetch": "^2.6.8"
   }

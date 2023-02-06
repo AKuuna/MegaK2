@@ -1,7 +1,9 @@
 //WORKING TEMPLATE FOR FUTURE
 const { promisify } = require('util');
-const scrypt = promisify(require('crypto').randomBytes);
+const scrypt = promisify(require('crypto').scrypt);
+const randomBytes = require('crypto').randomBytes;
 const { createCipheriv } = require('crypto');
+
 
 const algorithm = 'aes-192-cbc';
 const password = 'Password used to generate key';
