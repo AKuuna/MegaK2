@@ -1,0 +1,8 @@
+const ENCRYPTION_SALT ='nc48-94_j 9uteov58cmrrcm  9mcpw84  v82 894204803c 09pm0c23v4 66n467/.-09m6n';
+
+const HASH_SALT = 'rnvo87508nyc 877y 87ov30k-1v oomwnn8nfv m[04v;0wov ;0 54bnebb53748m6j85 br09j60-9-98nrb w4y9 40u94v84m bo4wbn7vmn';
+
+module.exports = {
+    ENCRYPTION_SALT,
+    HASH_SALT,
+};
