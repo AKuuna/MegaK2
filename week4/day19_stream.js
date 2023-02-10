@@ -13,7 +13,7 @@ const {pipeline} = require ('stream').promises;
 
     await pipeline( //merging them together
         openFileStream,
-        writeFileStream
+        writeFileStream,
     );
 
     console.log('Done!');
